@@ -1,0 +1,332 @@
+[
+  {
+    "Nombre": "Debilidad",
+    "Tipo": "Ataque",
+    "Valor": -2
+  },
+  {
+    "Nombre": "Maldición de fragilidad",
+    "Tipo": "Defensa",
+    "Valor": -3
+  },
+  {
+    "Nombre": "Veneno persistente",
+    "Tipo": "Vida",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Parálisis menor",
+    "Tipo": "Ataque",
+    "Valor": -3
+  },
+  {
+    "Nombre": "Atrofia muscular",
+    "Tipo": "Ataque",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Agotamiento",
+    "Tipo": "Ataque",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Ceguera",
+    "Tipo": "Ataque",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Confusión mental",
+    "Tipo": "Ataque",
+    "Valor": -3
+  },
+  {
+    "Nombre": "Ralentización",
+    "Tipo": "Ataque",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Torpeza",
+    "Tipo": "Ataque",
+    "Valor": -2
+  },
+  {
+    "Nombre": "Corrosión",
+    "Tipo": "Defensa",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Armadura quebrada",
+    "Tipo": "Defensa",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Vulnerabilidad",
+    "Tipo": "Defensa",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Piel marchita",
+    "Tipo": "Defensa",
+    "Valor": -2
+  },
+  {
+    "Nombre": "Grietas en el escudo",
+    "Tipo": "Defensa",
+    "Valor": -3
+  },
+  {
+    "Nombre": "Exposición total",
+    "Tipo": "Defensa",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Maldición del hierro",
+    "Tipo": "Defensa",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Desprotección",
+    "Tipo": "Defensa",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Hemorragia",
+    "Tipo": "Vida",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Plaga negra",
+    "Tipo": "Vida",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Enfermedad",
+    "Tipo": "Vida",
+    "Valor": -3
+  },
+  {
+    "Nombre": "Quemadura grave",
+    "Tipo": "Vida",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Congelación",
+    "Tipo": "Vida",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Descarga tóxica",
+    "Tipo": "Vida",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Herida infectada",
+    "Tipo": "Vida",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Putrefacción",
+    "Tipo": "Vida",
+    "Valor": -8
+  },
+  {
+    "Nombre": "Drenaje vital",
+    "Tipo": "Vida",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Necrosis",
+    "Tipo": "Vida",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Ácido corrosivo",
+    "Tipo": "Vida",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Mordedura séptica",
+    "Tipo": "Vida",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Maldición ancestral",
+    "Tipo": "Especial",
+    "Valor": -8
+  },
+  {
+    "Nombre": "Destierro temporal",
+    "Tipo": "Especial",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Silencio arcano",
+    "Tipo": "Especial",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Robo de energía",
+    "Tipo": "Especial",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Amnesia mágica",
+    "Tipo": "Especial",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Dispersión de poder",
+    "Tipo": "Especial",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Mala suerte",
+    "Tipo": "Especial",
+    "Valor": -3
+  },
+  {
+    "Nombre": "Marca del condenado",
+    "Tipo": "Especial",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Pesadilla viviente",
+    "Tipo": "Especial",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Caos interior",
+    "Tipo": "Especial",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Miedo paralizante",
+    "Tipo": "Especial",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Terror absoluto",
+    "Tipo": "Especial",
+    "Valor": -8
+  },
+  {
+    "Nombre": "Desesperación",
+    "Tipo": "Especial",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Fatiga extrema",
+    "Tipo": "Especial",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Locura temporal",
+    "Tipo": "Especial",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Distorsión",
+    "Tipo": "Especial",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Anulación mágica",
+    "Tipo": "Especial",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Bloqueo mental",
+    "Tipo": "Especial",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Sello oscuro",
+    "Tipo": "Especial",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Cadenas espectrales",
+    "Tipo": "Especial",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Vínculo maldito",
+    "Tipo": "Especial",
+    "Valor": -8
+  },
+  {
+    "Nombre": "Corrupción del alma",
+    "Tipo": "Vida",
+    "Valor": -9
+  },
+  {
+    "Nombre": "Maleficio eterno",
+    "Tipo": "Especial",
+    "Valor": -10
+  },
+  {
+    "Nombre": "Deterioro progresivo",
+    "Tipo": "Vida",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Desintegración lenta",
+    "Tipo": "Defensa",
+    "Valor": -8
+  },
+  {
+    "Nombre": "Pérdida de fe",
+    "Tipo": "Ataque",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Sanguijuela de maná",
+    "Tipo": "Especial",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Entropía",
+    "Tipo": "Especial",
+    "Valor": -9
+  },
+  {
+    "Nombre": "Decadencia",
+    "Tipo": "Vida",
+    "Valor": -7
+  },
+  {
+    "Nombre": "Marchitamiento",
+    "Tipo": "Ataque",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Erosión vital",
+    "Tipo": "Vida",
+    "Valor": -8
+  },
+  {
+    "Nombre": "Aura venenosa",
+    "Tipo": "Vida",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Niebla tóxica",
+    "Tipo": "Vida",
+    "Valor": -5
+  },
+  {
+    "Nombre": "Espinas malditas",
+    "Tipo": "Ataque",
+    "Valor": -4
+  },
+  {
+    "Nombre": "Fractura ósea",
+    "Tipo": "Defensa",
+    "Valor": -6
+  },
+  {
+    "Nombre": "Colapso estructural",
+    "Tipo": "Defensa",
+    "Valor": -7
+  }
+]

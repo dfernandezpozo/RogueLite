@@ -1,0 +1,14 @@
+C:\Users\Ferni\Desktop\RogueLite\bin\Debug\net9.0\RogueLite.exe
+C:\Users\Ferni\Desktop\RogueLite\bin\Debug\net9.0\RogueLite.deps.json
+C:\Users\Ferni\Desktop\RogueLite\bin\Debug\net9.0\RogueLite.runtimeconfig.json
+C:\Users\Ferni\Desktop\RogueLite\bin\Debug\net9.0\RogueLite.dll
+C:\Users\Ferni\Desktop\RogueLite\bin\Debug\net9.0\RogueLite.pdb
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.AssemblyInfoInputs.cache
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.AssemblyInfo.cs
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.csproj.CoreCompileInputs.cache
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.dll
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\refint\RogueLite.dll
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.pdb
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.genruntimeconfig.cache
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\ref\RogueLite.dll

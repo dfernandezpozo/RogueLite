@@ -1,0 +1,312 @@
+[
+  {
+    "Nombre": "Fuerza divina",
+    "Tipo": "Ataque",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Bendición de guerra",
+    "Tipo": "Ataque",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Ira del berserker",
+    "Tipo": "Ataque",
+    "Valor": 7
+  },
+  {
+    "Nombre": "Escudo sagrado",
+    "Tipo": "Defensa",
+    "Valor": 2
+  },
+  {
+    "Nombre": "Protección celestial",
+    "Tipo": "Defensa",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Barrera mística",
+    "Tipo": "Defensa",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Golpe del trueno",
+    "Tipo": "Ataque",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Lluvia de flechas",
+    "Tipo": "Ataque",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Estocada letal",
+    "Tipo": "Ataque",
+    "Valor": 8
+  },
+  {
+    "Nombre": "Corte veloz",
+    "Tipo": "Ataque",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Embestida brutal",
+    "Tipo": "Ataque",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Tajo carmesí",
+    "Tipo": "Ataque",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Puño de acero",
+    "Tipo": "Ataque",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Llamarada infernal",
+    "Tipo": "Ataque",
+    "Valor": 7
+  },
+  {
+    "Nombre": "Ventisca helada",
+    "Tipo": "Ataque",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Rayo cegador",
+    "Tipo": "Ataque",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Terremoto devastador",
+    "Tipo": "Ataque",
+    "Valor": 8
+  },
+  {
+    "Nombre": "Tormenta de espadas",
+    "Tipo": "Ataque",
+    "Valor": 7
+  },
+  {
+    "Nombre": "Garra sombría",
+    "Tipo": "Ataque",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Mordisco venenoso",
+    "Tipo": "Ataque",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Lanza del destino",
+    "Tipo": "Ataque",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Hacha ejecutora",
+    "Tipo": "Ataque",
+    "Valor": 8
+  },
+  {
+    "Nombre": "Daga asesina",
+    "Tipo": "Ataque",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Explosión arcana",
+    "Tipo": "Ataque",
+    "Valor": 7
+  },
+  {
+    "Nombre": "Descarga psíquica",
+    "Tipo": "Ataque",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Armadura de piedra",
+    "Tipo": "Defensa",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Manto de sombras",
+    "Tipo": "Defensa",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Fortificación",
+    "Tipo": "Defensa",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Escudo de cristal",
+    "Tipo": "Defensa",
+    "Valor": 2
+  },
+  {
+    "Nombre": "Reflejo del espejo",
+    "Tipo": "Defensa",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Piel de dragón",
+    "Tipo": "Defensa",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Guardia inquebrantable",
+    "Tipo": "Defensa",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Aura protectora",
+    "Tipo": "Defensa",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Muralla de hierro",
+    "Tipo": "Defensa",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Escudo del guardián",
+    "Tipo": "Defensa",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Resistencia arcana",
+    "Tipo": "Defensa",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Coraza divina",
+    "Tipo": "Defensa",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Bloqueo perfecto",
+    "Tipo": "Defensa",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Parada magistral",
+    "Tipo": "Defensa",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Esquiva imposible",
+    "Tipo": "Defensa",
+    "Valor": 2
+  },
+  {
+    "Nombre": "Regeneración",
+    "Tipo": "Curación",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Toque sanador",
+    "Tipo": "Curación",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Luz curativa",
+    "Tipo": "Curación",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Pocima vital",
+    "Tipo": "Curación",
+    "Valor": 2
+  },
+  {
+    "Nombre": "Renacimiento",
+    "Tipo": "Curación",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Bendición restauradora",
+    "Tipo": "Curación",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Aliento de vida",
+    "Tipo": "Curación",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Milagro menor",
+    "Tipo": "Curación",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Robo de vida",
+    "Tipo": "Especial",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Contraataque",
+    "Tipo": "Especial",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Invocación",
+    "Tipo": "Especial",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Sacrificio noble",
+    "Tipo": "Especial",
+    "Valor": 7
+  },
+  {
+    "Nombre": "Teletransporte",
+    "Tipo": "Especial",
+    "Valor": 3
+  },
+  {
+    "Nombre": "Copia exacta",
+    "Tipo": "Especial",
+    "Valor": 5
+  },
+  {
+    "Nombre": "Anulación",
+    "Tipo": "Especial",
+    "Valor": 4
+  },
+  {
+    "Nombre": "Transformación",
+    "Tipo": "Especial",
+    "Valor": 6
+  },
+  {
+    "Nombre": "Intercambio de almas",
+    "Tipo": "Especial",
+    "Valor": 7
+  },
+  {
+    "Nombre": "Destino fatal",
+    "Tipo": "Especial",
+    "Valor": 8
+  },
+  {
+    "Nombre": "Filo cósmico",
+    "Tipo": "Ataque",
+    "Valor": 9
+  },
+  {
+    "Nombre": "Aniquilación total",
+    "Tipo": "Ataque",
+    "Valor": 10
+  },
+  {
+    "Nombre": "Barrera absoluta",
+    "Tipo": "Defensa",
+    "Valor": 8
+  },
+  {
+    "Nombre": "Resurrección",
+    "Tipo": "Curación",
+    "Valor": 8
+  }
+]

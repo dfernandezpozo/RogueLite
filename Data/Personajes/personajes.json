@@ -1,0 +1,116 @@
+[
+  {
+    "Nombre": "Guerrero",
+    "Vida": 100,
+    "Ataque": 10,
+    "Tipo": "Jugador",
+    "Ataques": [
+      {
+        "Id": "golpe_rapido",
+        "Nombre": "Golpe Rápido",
+        "Danio": 10,
+        "CostoEnergia": 0,
+        "Tipo": "Fisico"
+      },
+      {
+        "Id": "golpe_pesado",
+        "Nombre": "Golpe Devastador",
+        "Danio": 20,
+        "CostoEnergia": 5,
+        "Tipo": "Fisico"
+      },
+      {
+        "Id": "embate_defensivo",
+        "Nombre": "Postura Defensiva",
+        "Danio": 0,
+        "CostoEnergia": 4,
+        "Tipo": "Defensivo",
+        "ReduccionDanio": 0.3
+      },
+      {
+        "Id": "grito_guerra",
+        "Nombre": "Grito de Guerra",
+        "Danio": 0,
+        "CostoEnergia": 3,
+        "Tipo": "Buff",
+        "AumentoAtaque": 5
+      }
+    ]
+  },
+  {
+    "Nombre": "Mago",
+    "Vida": 70,
+    "Ataque": 12,
+    "Tipo": "Jugador",
+    "Ataques": [
+      {
+        "Id": "bola_fuego",
+        "Nombre": "Bola de Fuego",
+        "Danio": 18,
+        "CostoEnergia": 6,
+        "Tipo": "Magico"
+      },
+      {
+        "Id": "rayo_arcano",
+        "Nombre": "Rayo Arcano",
+        "Danio": 14,
+        "CostoEnergia": 4,
+        "Tipo": "Magico"
+      },
+      {
+        "Id": "escudo_magico",
+        "Nombre": "Escudo Mágico",
+        "Danio": 0,
+        "CostoEnergia": 5,
+        "Tipo": "Defensivo",
+        "ReduccionDanio": 0.4
+      },
+      {
+        "Id": "meditacion",
+        "Nombre": "Meditación",
+        "Danio": 0,
+        "CostoEnergia": 0,
+        "Tipo": "Buff",
+        "RecuperaEnergia": 5
+      }
+    ]
+  },
+  {
+    "Nombre": "Alf",
+    "Vida": 200,
+    "Ataque": 1,
+    "Tipo": "Jugador",
+    "Ataques": [
+      {
+        "Id": "toque_mistico",
+        "Nombre": "Chatgpt",
+        "Danio": 8,
+        "CostoEnergia": 0,
+        "Tipo": "Magico"
+      },
+      {
+        "Id": "bendicion_antigua",
+        "Nombre": "POR_AXURE",
+        "Danio": 0,
+        "CostoEnergia": 3,
+        "Tipo": "Buff",
+        "AumentoVida": 15
+      },
+      {
+        "Id": "escudo_natural",
+        "Nombre": "Pelaje_natural",
+        "Danio": 0,
+        "CostoEnergia": 4,
+        "Tipo": "Defensivo",
+        "ReduccionDanio": 0.2
+      },
+      {
+        "Id": "golpe_lento",
+        "Nombre": "Sablazo-Figma",
+        "Danio": 6,
+        "CostoEnergia": 0,
+        "Tipo": "Fisico"
+      }
+    ]
+  }
+]
