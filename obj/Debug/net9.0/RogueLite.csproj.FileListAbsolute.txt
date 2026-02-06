@@ -12,3 +12,4 @@ C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\refint\RogueLite.dll
 C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.pdb
 C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.genruntimeconfig.cache
 C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\ref\RogueLite.dll
+C:\Users\Ferni\Desktop\RogueLite\obj\Debug\net9.0\RogueLite.sourcelink.json

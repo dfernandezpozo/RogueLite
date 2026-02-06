@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using RogueLite.Models;
+
+namespace RogueLite.Services
+{
+    /// <summary>
+    /// Servicio responsable de generar salas del juego.
+    /// </summary>
+    public class RoomGeneratorService
+    {
+        private readonly Random _random = new Random();
+        private readonly DataLoaderService _dataLoader;
+        private readonly LootService _lootService;
+
+        private static readonly string[] DESCRIPCIONES_SALAS = new[]
+        {
+            "Una sala oscura con antorchas parpadeantes",
+            "Un corredor estrecho con ecos lejanos",
+            "Una cámara amplia con pilares antiguos",
+            "Un pasillo húmedo con musgos en las paredes",
+            "La sala final, un gran salón amenazante"
+        };
+
+        public RoomGeneratorService(DataLoaderService dataLoader, LootService lootService)
+        {
+            _dataLoader = dataLoader;
+            _lootService = lootService;
+        }
+
+        /// <summary>
+        /// Genera una cantidad específica de salas.
+        /// </summary>
+        public List<Sala> GenerarSalas(int cantidad)
+        {
+            var salas = new List<Sala>();
+
+            for (int i = 1; i <= cantidad; i++)
+            {
+                var sala = GenerarSala(i);
+                salas.Add(sala);
+            }
+
+            return salas;
+        }
+
+        /// <summary>
+        /// Genera una sala individual.
+        /// </summary>
+        private Sala GenerarSala(int id)
+        {
+            return new Sala
+            {
+                Id = id,
+                Nombre = $"Sala {id}",
+                Descripcion = ObtenerDescripcionSala(id),
+                Enemigos = GenerarEnemigosParaSala(),
+                Objetos = GenerarObjetosParaSala()
+            };
+        }
+
+        /// <summary>
+        /// Obtiene la descripción de una sala basada en su ID.
+        /// </summary>
+        private string ObtenerDescripcionSala(int id)
+        {
+            return id <= DESCRIPCIONES_SALAS.Length 
+                ? DESCRIPCIONES_SALAS[id - 1] 
+                : "Una sala misteriosa";
+        }
+
+        /// <summary>
+        /// Genera enemigos aleatorios para una sala.
+        /// </summary>
+        private List<Enemigo> GenerarEnemigosParaSala()
+        {
+            int cantidad = _random.Next(1, 4);
+            return _dataLoader.ObtenerEnemigosAleatorios(cantidad);
+        }
+
+        /// <summary>
+        /// Genera objetos aleatorios para una sala.
+        /// </summary>
+        private List<Objeto> GenerarObjetosParaSala()
+        {
+            int cantidad = _random.Next(0, 3);
+            return _lootService.ObtenerObjetosAleatorios(cantidad);
+        }
+    }
+}
