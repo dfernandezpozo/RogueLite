@@ -164,7 +164,8 @@ namespace RogueLite
             {
                 uiManager.MostrarGameOver(
                     gameManager.DañoTotal,
-                    gameManager.EnemigosDerrotados
+                    gameManager.EnemigosDerrotados,
+                    gameManager.Jugador
                 );
             }
         }
