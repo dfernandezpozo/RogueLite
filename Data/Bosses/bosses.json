@@ -1,0 +1,50 @@
+[
+  {
+    "Id": "boss_dragon",
+    "Nombre": "🐉 Dragón Ancestral",
+    "Descripcion": "Guardián del calabozo, respira fuego mortal",
+    "Vida": 150,
+    "Ataque": 25,
+    "Defensa": 8,
+    "Habilidades": [
+      {
+        "Nombre": "Aliento de Fuego",
+        "Descripcion": "Lanza una llamarada devastadora",
+        "Danio": 40,
+        "EsAreaDanio": true,
+        "CuracionPropia": 0
+      },
+      {
+        "Nombre": "Regeneración Dracónica",
+        "Descripcion": "Se cura con magia antigua",
+        "Danio": 0,
+        "EsAreaDanio": false,
+        "CuracionPropia": 30
+      }
+    ]
+  },
+  {
+    "Id": "boss_lich",
+    "Nombre": "💀 Rey Lich",
+    "Descripcion": "Nigromante supremo, maestro de la muerte",
+    "Vida": 120,
+    "Ataque": 20,
+    "Defensa": 5,
+    "Habilidades": [
+      {
+        "Nombre": "Drenar Vida",
+        "Descripcion": "Absorbe la fuerza vital",
+        "Danio": 30,
+        "EsAreaDanio": false,
+        "CuracionPropia": 15
+      },
+      {
+        "Nombre": "Maldición",
+        "Descripcion": "Te debilita con magia oscura",
+        "Danio": 25,
+        "EsAreaDanio": true,
+        "CuracionPropia": 0
+      }
+    ]
+  }
+]

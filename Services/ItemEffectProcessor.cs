@@ -16,8 +16,9 @@ namespace RogueLite.Services
         {
             switch (objeto.Tipo)
             {
+                case "Consumible":  // ← AÑADIDO
                 case "Poción":
-                    return ProcesarPocion(objeto, jugador, resultado);
+                    return ProcesarConsumible(objeto, jugador, resultado);
                 case "Pergamino":
                     return ProcesarPergamino(objeto, jugador, resultado);
                 default:
@@ -25,17 +26,38 @@ namespace RogueLite.Services
             }
         }
 
-        private static bool ProcesarPocion(Objeto objeto, Personaje jugador, ResultadoTurno resultado)
+        private static bool ProcesarConsumible(Objeto objeto, Personaje jugador, ResultadoTurno resultado)
         {
-            if (objeto.Nombre.Contains("Vida") || objeto.Nombre.Contains("Curación") ||
+            // Pociones de salud
+            if (objeto.Nombre.Contains("Salud") || objeto.Nombre.Contains("Poción") || 
+                objeto.Nombre.Contains("Vida") || objeto.Nombre.Contains("Curación") ||
                 objeto.Nombre.Contains("Regeneración") || objeto.Nombre.Contains("Completo"))
             {
-                int curacion = objeto.Valor * 10;
+                int curacion = objeto.Valor * 3; // Valor * 3 para que sea balanceado
                 jugador.Curar(curacion);
                 resultado.Mensaje = $"🧪 Usaste {objeto.Nombre} y recuperaste {curacion} de vida";
                 return true;
             }
 
+            // Elixir del Titán (legendario especial)
+            if (objeto.Nombre.Contains("Elixir") || objeto.Nombre.Contains("Titán"))
+            {
+                jugador.Curar(jugador.VidaMaxima); // Cura completa
+                jugador.Ataque += 10; // Bonus permanente
+                resultado.Mensaje = $"✨ ¡Usaste {objeto.Nombre}! Vida restaurada y +10 ATK permanente";
+                return true;
+            }
+
+            // Antídoto
+            if (objeto.Nombre.Contains("Antídoto"))
+            {
+                int curacion = 20;
+                jugador.Curar(curacion);
+                resultado.Mensaje = $"💊 Usaste {objeto.Nombre} y te curaste {curacion} HP";
+                return true;
+            }
+
+            // Pociones de fuerza
             if (objeto.Nombre.Contains("Fuerza"))
             {
                 AplicarBendicionAtaque(objeto, jugador);
@@ -43,15 +65,16 @@ namespace RogueLite.Services
                 return true;
             }
 
-            if (objeto.Nombre.Contains("Resistencia"))
+            // Pociones de resistencia/defensa
+            if (objeto.Nombre.Contains("Resistencia") || objeto.Nombre.Contains("Defensa"))
             {
                 AplicarBendicionDefensa(objeto, jugador);
                 resultado.Mensaje = $"🛡️ Usaste {objeto.Nombre}. ¡Tu defensa aumentó en {objeto.Valor}!";
                 return true;
             }
 
-            // Poción genérica
-            int curacionGenerica = objeto.Valor * 5;
+            // Consumible genérico - cura basado en valor
+            int curacionGenerica = objeto.Valor * 2;
             jugador.Curar(curacionGenerica);
             resultado.Mensaje = $"🧪 Usaste {objeto.Nombre} y recuperaste {curacionGenerica} de vida";
             return true;

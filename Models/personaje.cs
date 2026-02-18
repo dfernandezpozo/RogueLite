@@ -12,6 +12,7 @@ namespace RogueLite.Models
         public int Ataque { get; set; } = 10;
         public int Experiencia { get; set; } = 0;
         public int Nivel { get; set; } = 1;
+        public int Oro { get; set; } = 100; // ← NUEVO: Sistema de oro
         public List<Objeto> Inventario { get; set; } = new();
         public List<Bendicion> BendicionesActivas { get; set; } = new();
 
@@ -65,6 +66,26 @@ namespace RogueLite.Models
         {
             int xpNecesaria = Nivel * 100;
             return Experiencia >= xpNecesaria;
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // SISTEMA DE ORO (NUEVO)
+        // ═══════════════════════════════════════════════════════════
+
+        public void GanarOro(int cantidad)
+        {
+            Oro += cantidad;
+        }
+
+        public void GastarOro(int cantidad)
+        {
+            Oro -= cantidad;
+            if (Oro < 0) Oro = 0;
+        }
+
+        public bool PuedeComprar(int precio)
+        {
+            return Oro >= precio;
         }
     }
 }

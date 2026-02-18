@@ -18,11 +18,16 @@ namespace RogueLite.Services
         private List<Objeto> _lootDisponibles = new();
         private List<Bendicion> _bendicionesDisponibles = new();
         private List<Maldicion> _maldicionesDisponibles = new();
+        private List<Boss> _bossesDisponibles = new();
 
         public IReadOnlyList<Enemigo> EnemigosDisponibles => _enemigosDisponibles.AsReadOnly();
         public IReadOnlyList<Objeto> LootDisponibles => _lootDisponibles.AsReadOnly();
         public IReadOnlyList<Bendicion> BendicionesDisponibles => _bendicionesDisponibles.AsReadOnly();
         public IReadOnlyList<Maldicion> MaldicionesDisponibles => _maldicionesDisponibles.AsReadOnly();
+        public IReadOnlyList<Boss> BossesDisponibles => _bossesDisponibles.AsReadOnly();
+        
+        // Para acceso directo (necesario para la tienda)
+        public List<Objeto> Objetos => _lootDisponibles.ToList();
 
         /// <summary>
         /// Carga todos los datos del juego desde archivos JSON.
@@ -33,9 +38,12 @@ namespace RogueLite.Services
             _lootDisponibles = CargarJSON<Objeto>(Path.Combine("Data", "Loot", "loot.json"));
             _bendicionesDisponibles = CargarJSON<Bendicion>(Path.Combine("Data", "Bendiciones", "bendiciones.json"));
             _maldicionesDisponibles = CargarJSON<Maldicion>(Path.Combine("Data", "Maldiciones", "maldiciones.json"));
+            _bossesDisponibles = CargarJSON<Boss>(Path.Combine("Data", "Bosses", "bosses.json"));
 
             InicializarEnemigos();
+            InicializarBosses();
         }
+        
 
         /// <summary>
         /// Carga personajes desde archivo JSON.
@@ -93,11 +101,34 @@ namespace RogueLite.Services
                 .ToList();
         }
 
+        /// <summary>
+        /// Obtiene un boss aleatorio.
+        /// </summary>
+        public Boss? ObtenerBossAleatorio()
+        {
+            if (!_bossesDisponibles.Any())
+            {
+                Console.WriteLine("⚠️  No hay bosses disponibles");
+                return null;
+            }
+
+            var boss = _bossesDisponibles.OrderBy(_ => _random.Next()).First();
+            return boss.Clone() as Boss;
+        }
+
         private void InicializarEnemigos()
         {
             foreach (var enemigo in _enemigosDisponibles)
             {
                 enemigo.VidaMaxima = enemigo.Vida;
+            }
+        }
+
+        private void InicializarBosses()
+        {
+            foreach (var boss in _bossesDisponibles)
+            {
+                boss.VidaMaxima = boss.Vida;
             }
         }
 
@@ -112,7 +143,15 @@ namespace RogueLite.Services
             try
             {
                 var json = File.ReadAllText(path);
-                var data = JsonSerializer.Deserialize<List<T>>(json);
+                
+                // Opciones para deserializar enums correctamente
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() }
+                };
+                
+                var data = JsonSerializer.Deserialize<List<T>>(json, options);
                 return data ?? new List<T>();
             }
             catch (Exception ex)

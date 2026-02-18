@@ -51,6 +51,7 @@ namespace RogueLite.Manager
         public void InicializarJuego()
         {
             _dataLoader.CargarTodosLosDatos();
+            _lootService.InicializarLoot(_dataLoader.LootDisponibles.ToList()); 
             Salas = _roomGenerator.GenerarSalas(5);
             _combatService.FinalizarCombate();
         }
@@ -123,6 +124,18 @@ namespace RogueLite.Manager
         public List<Enemigo> ObtenerEnemigosVivos()
         {
             return _combatService.ObtenerEnemigosVivos();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // MÉTODOS PARA LA TIENDA (NUEVO)
+        // ═══════════════════════════════════════════════════════════
+
+        /// <summary>
+        /// Obtiene todos los objetos disponibles en el juego (para la tienda).
+        /// </summary>
+        public List<Objeto> ObtenerTodosLosObjetos()
+        {
+            return _dataLoader.Objetos;
         }
     }
 }

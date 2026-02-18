@@ -37,17 +37,24 @@ namespace RogueLite.Services
 
             for (int i = 1; i <= cantidad; i++)
             {
-                var sala = GenerarSala(i);
-                salas.Add(sala);
+                // La última sala es una sala de boss
+                if (i == cantidad)
+                {
+                    salas.Add(GenerarSalaBoss(i));
+                }
+                else
+                {
+                    salas.Add(GenerarSalaNormal(i));
+                }
             }
 
             return salas;
         }
 
         /// <summary>
-        /// Genera una sala individual.
+        /// Genera una sala normal con enemigos regulares.
         /// </summary>
-        private Sala GenerarSala(int id)
+        private Sala GenerarSalaNormal(int id)
         {
             return new Sala
             {
@@ -56,6 +63,30 @@ namespace RogueLite.Services
                 Descripcion = ObtenerDescripcionSala(id),
                 Enemigos = GenerarEnemigosParaSala(),
                 Objetos = GenerarObjetosParaSala()
+            };
+        }
+
+        /// <summary>
+        /// Genera una sala con un boss como enemigo final.
+        /// </summary>
+        private Sala GenerarSalaBoss(int id)
+        {
+            var boss = _dataLoader.ObtenerBossAleatorio();
+            
+            if (boss == null)
+            {
+                // Fallback: si no hay bosses disponibles, genera sala normal
+                Console.WriteLine("⚠️  No hay bosses disponibles, generando sala normal");
+                return GenerarSalaNormal(id);
+            }
+
+            return new Sala
+            {
+                Id = id,
+                Nombre = $"🔥 SALA DEL JEFE FINAL",
+                Descripcion = $"Una presencia aterradora llena la sala... {boss.Descripcion}",
+                Enemigos = new List<Enemigo> { boss },
+                Objetos = new List<Objeto>() // Los bosses no tienen objetos en el suelo
             };
         }
 

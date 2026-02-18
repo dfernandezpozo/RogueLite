@@ -7,7 +7,7 @@ using RogueLite.UI.Components;
 namespace RogueLite.UI.Screens
 {
     /// <summary>
-    /// Pantalla de selección de personaje.
+    /// Pantalla de selección de personaje - Rediseño ÉPICO.
     /// </summary>
     public class CharacterSelectionScreen
     {
@@ -21,82 +21,181 @@ namespace RogueLite.UI.Screens
         public Personaje Mostrar(List<Personaje> personajes)
         {
             Console.Clear();
-            MostrarTitulo();
-            MostrarListaPersonajes(personajes);
+            Console.CursorVisible = false;
             
+            MostrarTituloEpico();
+            MostrarPersonajesConEstilo(personajes);
+            
+            Console.CursorVisible = true;
             var seleccion = SolicitarSeleccion(personajes.Count);
             var personajeSeleccionado = personajes[seleccion - 1];
             
-            MostrarConfirmacion(personajeSeleccionado);
+            MostrarConfirmacionEpica(personajeSeleccionado);
             
             return personajeSeleccionado;
         }
 
-        private void MostrarTitulo()
+        private void MostrarTituloEpico()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(@"
-    ╔═══════════════════════════════════════════════╗
-    ║                                               ║
-    ║          ⚔️  SELECCIÓN DE HÉROE  ⚔️             ║
-    ║                                               ║
-    ╚═══════════════════════════════════════════════╝
+    ╔═══════════════════════════════════════════════════════╗
+    ║                                                       ║
+    ║     ⚔️  ═══════ SELECCIÓN DE HÉROE ═══════  ⚔️         ║
+    ║                                                       ║
+    ║           Elige sabiamente tu destino...             ║
+    ║                                                       ║
+    ╚═══════════════════════════════════════════════════════╝
 ");
             Console.ResetColor();
-            Console.WriteLine("\n  Elige tu clase de héroe:\n");
+            Thread.Sleep(400);
         }
 
-        private void MostrarListaPersonajes(List<Personaje> personajes)
+        private void MostrarPersonajesConEstilo(List<Personaje> personajes)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Console.ResetColor();
+            Console.WriteLine();
+
             for (int i = 0; i < personajes.Count; i++)
             {
-                var personaje = personajes[i];
-                MostrarPersonaje(i + 1, personaje);
+                MostrarPersonajeEpico(i + 1, personajes[i]);
+                
+                if (i < personajes.Count - 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄");
+                    Console.ResetColor();
+                }
+                
+                Thread.Sleep(150);
             }
-            Console.WriteLine("  ─────────────────────────────────────────────");
+            
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Console.ResetColor();
         }
 
-        private void MostrarPersonaje(int numero, Personaje personaje)
+        private void MostrarPersonajeEpico(int numero, Personaje personaje)
         {
+            // Número y marco
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"  [{numero}] {personaje.Nombre}");
+            Console.WriteLine($"    ╔═══ [{numero}] ═══════════════════════════════════════╗");
+            Console.ResetColor();
+            
+            // Nombre del personaje con efecto
+            Console.Write("    ║  ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"⚔️  {personaje.Nombre.ToUpper()}");
             Console.ResetColor();
             
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write($" ({personaje.Tipo})");
-            Console.ResetColor();
-            Console.WriteLine();
-            
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"      ❤️  Vida: {personaje.VidaMaxima}");
+            Console.WriteLine($" - {personaje.Tipo}".PadRight(40) + "║");
             Console.ResetColor();
             
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"  ⚔️  Ataque: {personaje.Ataque}");
+            // Separador
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("    ║  ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈  ║");
             Console.ResetColor();
-            Console.WriteLine();
+            
+            // Stats con barras visuales
+            Console.Write("    ║  ");
+            MostrarStatConBarra("❤️  VIDA", personaje.VidaMaxima, 150, ConsoleColor.Red);
+            Console.WriteLine("  ║");
+            
+            Console.Write("    ║  ");
+            MostrarStatConBarra("⚔️  ATAQUE", personaje.Ataque, 20, ConsoleColor.Yellow);
+            Console.WriteLine("  ║");
+            
+            // Marco inferior
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("    ╚═══════════════════════════════════════════════════╝");
+            Console.ResetColor();
+        }
+
+        private void MostrarStatConBarra(string nombre, int valor, int valorMax, ConsoleColor color)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"{nombre}: ");
+            Console.ForegroundColor = color;
+            Console.Write($"{valor}".PadLeft(3));
+            Console.ResetColor();
+            
+            // Barra visual
+            Console.Write(" [");
+            int barLength = 20;
+            int filled = (int)((double)valor / valorMax * barLength);
+            
+            Console.ForegroundColor = color;
+            Console.Write(new string('█', Math.Min(filled, barLength)));
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write(new string('░', Math.Max(0, barLength - filled)));
+            Console.ResetColor();
+            Console.Write("]");
         }
 
         private int SolicitarSeleccion(int maxPersonajes)
         {
-            Console.Write("\n  » Selecciona tu héroe (1-" + maxPersonajes + "): ");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"    ⚡ Selecciona tu héroe (1-{maxPersonajes}): ");
+            Console.ForegroundColor = ConsoleColor.White;
 
             int seleccion;
             while (!int.TryParse(Console.ReadLine(), out seleccion) || seleccion < 1 || seleccion > maxPersonajes)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"  ❌ Opción inválida. Elige entre 1 y {maxPersonajes}: ");
-                Console.ResetColor();
+                Console.Write($"    ❌ Opción inválida. Elige entre 1 y {maxPersonajes}: ");
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
+            Console.ResetColor();
             return seleccion;
         }
 
-        private void MostrarConfirmacion(Personaje personaje)
+        private void MostrarConfirmacionEpica(Personaje personaje)
         {
+            Console.Clear();
+            Console.WriteLine("\n\n");
+            
+            // Efecto de confirmación
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("    ═══════════════════════════════════════════════════════");
+            Console.ResetColor();
+            
+            Thread.Sleep(200);
+            
+            Console.ForegroundColor = ConsoleColor.Green;
+            _animator.AnimarTexto($"              ✓ Has elegido a {personaje.Nombre}!", ConsoleColor.Green, 20);
+            Console.ResetColor();
+            
+            Thread.Sleep(300);
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            _animator.AnimarTexto("              Preparando tu aventura...", ConsoleColor.Yellow, 30);
+            Console.ResetColor();
+            
             Console.WriteLine();
-            _animator.AnimarTexto($"  ✓ Has elegido a {personaje.Nombre}!", ConsoleColor.Green);
-            Thread.Sleep(1000);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("    ═══════════════════════════════════════════════════════");
+            Console.ResetColor();
+            
+            // Efecto de carga
+            Console.WriteLine();
+            Console.Write("    ");
+            for (int i = 0; i < 50; i++)
+            {
+                Console.ForegroundColor = i < 25 ? ConsoleColor.DarkCyan : ConsoleColor.Cyan;
+                Console.Write("▓");
+                Thread.Sleep(30);
+            }
+            Console.ResetColor();
+            Console.WriteLine("\n");
+            
+            Thread.Sleep(500);
         }
     }
 }

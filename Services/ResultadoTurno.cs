@@ -25,6 +25,9 @@ namespace RogueLite.Services
         public bool ObjetoUsado { get; set; }
         public Objeto ObjetoRecogido { get; set; }
 
+        // Oro
+        public int OroGanado { get; set; }
+
         // Otras acciones
         public bool HuyoExitosamente { get; set; }
     }
@@ -36,5 +39,6 @@ namespace RogueLite.Services
     {
         public Enemigo Enemigo { get; set; }
         public int Daño { get; set; }
+        public bool EsHabilidadEspecial { get; set; } = false; // ← NUEVO: Para habilidades de boss
     }
 }

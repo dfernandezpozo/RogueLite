@@ -240,6 +240,24 @@ namespace RogueLite.Services
             SalaActual.Enemigos.Remove(enemigo);
             jugador.GanarExperiencia(25);
 
+            // *** NUEVO: Drop de oro ***
+            int oroGanado;
+            if (enemigo is Boss)
+            {
+                // Bosses dan mucho más oro
+                oroGanado = _random.Next(100, 200);
+                resultado.Mensaje += $"\n👑 ¡RECOMPENSA DEL JEFE!";
+            }
+            else
+            {
+                // Enemigos normales
+                oroGanado = _random.Next(10, 30);
+            }
+            
+            jugador.GanarOro(oroGanado);
+            resultado.OroGanado = oroGanado;
+            resultado.Mensaje += $"\n💰 +{oroGanado} oro";
+
             // Drop de loot
             var loot = _lootService.GenerarLootDrop();
             if (loot != null)
@@ -259,6 +277,19 @@ namespace RogueLite.Services
 
             foreach (var enemigo in SalaActual.Enemigos.Where(e => e.EstaVivo()).ToList())
             {
+                // *** NUEVO: Verificar si es un Boss con habilidad ***
+                if (enemigo is Boss boss)
+                {
+                    var habilidad = boss.ObtenerHabilidadParaUsar();
+                    
+                    if (habilidad != null)
+                    {
+                        EjecutarHabilidadBoss(boss, habilidad, jugador, resultado);
+                        continue; // Ya atacó con habilidad, no hace ataque normal
+                    }
+                }
+
+                // Ataque normal
                 int dañoBase = enemigo.Ataque;
                 int dañoRecibido = Math.Max(1, dañoBase - jugador.CalcularDefensa());
                 jugador.RecibirDaño(dañoRecibido);
@@ -282,18 +313,61 @@ namespace RogueLite.Services
             }
         }
 
+        /// <summary>
+        /// Ejecuta una habilidad especial de un boss.
+        /// </summary>
+        private void EjecutarHabilidadBoss(Boss boss, HabilidadBoss habilidad, Personaje jugador, ResultadoTurno resultado)
+        {
+            Console.WriteLine($"\n🔥 ¡{boss.Nombre} usa {habilidad.Nombre}!");
+            Console.WriteLine($"   {habilidad.Descripcion}");
+            System.Threading.Thread.Sleep(800);
+            
+            // Daño de la habilidad
+            if (habilidad.Danio > 0)
+            {
+                int daño = habilidad.EsAreaDanio 
+                    ? habilidad.Danio  // Ignora defensa completamente
+                    : Math.Max(1, habilidad.Danio - jugador.CalcularDefensa());
+                    
+                jugador.RecibirDaño(daño);
+                
+                resultado.AtaquesEnemigos.Add(new AtaqueEnemigo
+                {
+                    Enemigo = boss,
+                    Daño = daño,
+                    EsHabilidadEspecial = true
+                });
+                
+                resultado.DañoEnemigo += daño;
+            }
+            
+            // Curación del boss
+            if (habilidad.CuracionPropia > 0)
+            {
+                int vidaAntes = boss.Vida;
+                boss.Vida = Math.Min(boss.VidaMaxima, boss.Vida + habilidad.CuracionPropia);
+                int vidaCurada = boss.Vida - vidaAntes;
+                
+                Console.WriteLine($"💚 {boss.Nombre} se cura {vidaCurada} HP!");
+                System.Threading.Thread.Sleep(400);
+            }
+        }
+
         private void FormatearMensajeAtaquesEnemigos(ResultadoTurno resultado, int dañoTotal)
         {
             if (resultado.AtaquesEnemigos.Count == 1)
             {
-                resultado.Mensaje += $"\n💥 {resultado.AtaquesEnemigos[0].Enemigo.Nombre} te ataca causando {resultado.AtaquesEnemigos[0].Daño} de daño";
+                var ataque = resultado.AtaquesEnemigos[0];
+                string tipoAtaque = ataque.EsHabilidadEspecial ? "usa una habilidad especial" : "te ataca";
+                resultado.Mensaje += $"\n💥 {ataque.Enemigo.Nombre} {tipoAtaque} causando {ataque.Daño} de daño";
             }
             else if (resultado.AtaquesEnemigos.Count > 1)
             {
                 resultado.Mensaje += $"\n💥 Los enemigos atacan causando {dañoTotal} de daño total:";
                 foreach (var ataque in resultado.AtaquesEnemigos)
                 {
-                    resultado.Mensaje += $"\n   • {ataque.Enemigo.Nombre}: {ataque.Daño} de daño";
+                    string tipoAtaque = ataque.EsHabilidadEspecial ? "⚡ Habilidad" : "Ataque";
+                    resultado.Mensaje += $"\n   • {ataque.Enemigo.Nombre} ({tipoAtaque}): {ataque.Daño} de daño";
                 }
             }
         }
