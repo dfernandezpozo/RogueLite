@@ -34,10 +34,10 @@ namespace RogueLite.Services
         /// </summary>
         public void CargarTodosLosDatos()
         {
-            _enemigosDisponibles = CargarJSON<Enemigo>(Path.Combine("Data", "Enemigos", "enemigos.json"));
+            _enemigosDisponibles = CargarJSON<Enemigo>(Path.Combine("Data", "Enemies", "enemies.json"));
             _lootDisponibles = CargarJSON<Objeto>(Path.Combine("Data", "Loot", "loot.json"));
-            _bendicionesDisponibles = CargarJSON<Bendicion>(Path.Combine("Data", "Bendiciones", "bendiciones.json"));
-            _maldicionesDisponibles = CargarJSON<Maldicion>(Path.Combine("Data", "Maldiciones", "maldiciones.json"));
+            _bendicionesDisponibles = CargarJSON<Bendicion>(Path.Combine("Data", "Blessings", "blessings.json"));
+            _maldicionesDisponibles = CargarJSON<Maldicion>(Path.Combine("Data", "Curses", "curses.json"));
             _bossesDisponibles = CargarJSON<Boss>(Path.Combine("Data", "Bosses", "bosses.json"));
 
             InicializarEnemigos();
@@ -50,7 +50,7 @@ namespace RogueLite.Services
         /// </summary>
         public List<Personaje> CargarPersonajes()
         {
-            var personajes = CargarJSON<Personaje>(Path.Combine("Data", "Personajes", "personajes.json"));
+            var personajes = CargarJSON<Personaje>(Path.Combine("Data", "Characters", "characters.json"));
             
             foreach (var personaje in personajes)
             {

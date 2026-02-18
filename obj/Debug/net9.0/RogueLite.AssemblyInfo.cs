@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RogueLite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01494b28d70d6eaf5bad1948551d3221f69b28cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51bad27a7905031847051e0a840f29a0efb71761")]
 [assembly: System.Reflection.AssemblyProductAttribute("RogueLite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RogueLite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
