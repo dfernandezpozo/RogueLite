@@ -312,15 +312,6 @@ Puntuación = Daño Total + (Enemigos × 50) + (Nivel × 100)
 
 ---
 
-## 🤝 Contribuir
-
-¡Las contribuciones son bienvenidas! Si quieres mejorar el juego:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add: Amazing Feature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
 
 ### Áreas donde puedes contribuir
 - 🎨 Nuevos efectos visuales ASCII
@@ -341,14 +332,7 @@ Puntuación = Daño Total + (Enemigos × 50) + (Nivel × 100)
 
 ---
 
-## 🙏 Agradecimientos
-
-- Inspirado en clásicos roguelikes como *Slay the Spire*, *Darkest Dungeon* y *Hades*
-- ASCII Art y efectos visuales inspirados en juegos retro de consola
-- Comunidad de .NET y C# por las excelentes herramientas
-
 ---
 
 **⚔️ ¡Que la fortuna te acompañe en la mazmorra! ⚔️**
 
-*Hecho con ❤️ y mucho ☕*
