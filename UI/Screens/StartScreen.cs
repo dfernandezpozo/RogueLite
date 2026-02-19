@@ -144,7 +144,7 @@ namespace RogueLite.UI.Screens
             Console.WriteLine("    ═══════════════════════════════════════════════════════");
             Console.ResetColor();
             
-            // Efecto de parpadeo en el prompt 
+            // Efecto de parpadeo  
             Enumerable.Range(0, 3)
                 .ToList()
                 .ForEach(_ =>
