@@ -54,7 +54,7 @@ namespace RogueLite.Models
                 _ => 20
             };
 
-            // Ajustar por valor del objeto
+            
             int ajustePorValor = objeto.Valor * 2;
 
             return precioBase + ajustePorValor;

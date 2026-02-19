@@ -34,7 +34,7 @@ namespace RogueLite.Services
 
             if (_random.Next(100) < PROBABILIDAD_DROP)
             {
-                // *** NUEVO: Sistema de rareza ***
+                
                 var rareza = DeterminarRareza();
                 return GenerarObjetoPorRareza(rareza);
             }
@@ -56,9 +56,7 @@ namespace RogueLite.Services
                 .ToList();
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // SISTEMA DE RAREZA (NUEVO)
-        // ═══════════════════════════════════════════════════════════
+
 
         /// <summary>
         /// Determina la rareza del objeto a generar basándose en probabilidades.
@@ -85,7 +83,7 @@ namespace RogueLite.Services
 
             if (objetosDeRareza.Count == 0)
             {
-                // Fallback: si no hay objetos de esa rareza, devolver cualquiera
+                //  si no hay objetos de esa rareza, devolver cualquiera
                 return _lootDisponible.OrderBy(_ => _random.Next()).FirstOrDefault();
             }
 
@@ -106,7 +104,7 @@ namespace RogueLite.Services
 
             if (objetosElegibles.Count == 0)
             {
-                // Fallback: devolver el mejor objeto disponible
+                //  devolver el mejor objeto disponible
                 return _lootDisponible
                     .OrderByDescending(o => o.Rareza)
                     .FirstOrDefault();

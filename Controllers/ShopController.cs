@@ -100,41 +100,43 @@ namespace RogueLite.Controllers
             Console.WriteLine("\n📦 OBJETOS DISPONIBLES:");
             Console.WriteLine("───────────────────────────────────────────────────────");
 
-            for (int i = 0; i < _tienda.ObjetosDisponibles.Count; i++)
-            {
-                var item = _tienda.ObjetosDisponibles[i];
-
-                if (item.Vendido)
+            
+            _tienda.ObjetosDisponibles
+                .Select((item, index) => new { Item = item, Index = index })
+                .ToList()
+                .ForEach(x =>
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"{i + 1}. [VENDIDO]");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.Write($"{i + 1}. ");
-                    
-                    // Mostrar nombre con color de rareza
-                    Console.ForegroundColor = item.Objeto.ObtenerColorRareza();
-                    Console.Write($"{item.Objeto.ObtenerEstrellas()} {item.Objeto.Nombre}");
-                    Console.ResetColor();
-                    
-                    // Precio
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($" - {item.Precio} oro");
-                    Console.ResetColor();
-                    
-                    // Efecto
-                    if (!string.IsNullOrEmpty(item.Objeto.Efecto))
+                    if (x.Item.Vendido)
                     {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine($"   {item.Objeto.Efecto}");
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine($"{x.Index + 1}. [VENDIDO]");
                         Console.ResetColor();
                     }
-                }
-            }
+                    else
+                    {
+                        Console.Write($"{x.Index + 1}. ");
+                        
+                        // Mostrar nombre con color de rareza
+                        Console.ForegroundColor = x.Item.Objeto.ObtenerColorRareza();
+                        Console.Write($"{x.Item.Objeto.ObtenerEstrellas()} {x.Item.Objeto.Nombre}");
+                        Console.ResetColor();
+                        
+                        // Precio
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($" - {x.Item.Precio} oro");
+                        Console.ResetColor();
+                        
+                        // Efecto
+                        if (!string.IsNullOrEmpty(x.Item.Objeto.Efecto))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.WriteLine($"   {x.Item.Objeto.Efecto}");
+                            Console.ResetColor();
+                        }
+                    }
+                });
 
-            // Opciones
+            // Opciones de la tienda
             Console.WriteLine("\n───────────────────────────────────────────────────────");
             Console.WriteLine("7. 💸 Vender objetos de tu inventario");
             Console.WriteLine("8. 🚪 Salir de la tienda");
@@ -184,20 +186,23 @@ namespace RogueLite.Controllers
             Console.WriteLine("\n🎒 TU INVENTARIO:");
             Console.WriteLine("───────────────────────────────────────────────────────");
             
-            for (int i = 0; i < _gameManager.Jugador.Inventario.Count; i++)
-            {
-                var obj = _gameManager.Jugador.Inventario[i];
-                int precioVenta = _tienda.CalcularPrecioVenta(obj);
-                
-                Console.Write($"{i + 1}. ");
-                Console.ForegroundColor = obj.ObtenerColorRareza();
-                Console.Write($"{obj.Nombre}");
-                Console.ResetColor();
-                
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($" - {precioVenta} oro");
-                Console.ResetColor();
-            }
+            
+            _gameManager.Jugador.Inventario
+                .Select((obj, index) => new { Objeto = obj, Index = index })
+                .ToList()
+                .ForEach(x =>
+                {
+                    int precioVenta = _tienda.CalcularPrecioVenta(x.Objeto);
+                    
+                    Console.Write($"{x.Index + 1}. ");
+                    Console.ForegroundColor = x.Objeto.ObtenerColorRareza();
+                    Console.Write($"{x.Objeto.Nombre}");
+                    Console.ResetColor();
+                    
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($" - {precioVenta} oro");
+                    Console.ResetColor();
+                });
 
             Console.Write("\n¿Qué objeto vendes? (0 para cancelar): ");
 

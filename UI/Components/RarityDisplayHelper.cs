@@ -1,11 +1,11 @@
 using System;
+using System.Linq;
 using RogueLite.Models;
 
 namespace RogueLite.UI
 {
     /// <summary>
     /// Métodos de extensión para mostrar objetos con formato de rareza.
-    /// Añade esto a tu MessageRenderer o crea un nuevo archivo.
     /// </summary>
     public static class RarityDisplayHelper
     {
@@ -49,20 +49,23 @@ namespace RogueLite.UI
         /// </summary>
         public static void MostrarInventarioConRareza(System.Collections.Generic.List<Objeto> inventario)
         {
-            for (int i = 0; i < inventario.Count; i++)
-            {
-                var obj = inventario[i];
-                Console.Write($"{i + 1}. ");
-                MostrarNombreConColor(obj);
-                Console.WriteLine($" ({obj.Tipo})");
-                
-                if (!string.IsNullOrEmpty(obj.Efecto))
+            
+            inventario
+                .Select((obj, index) => new { Objeto = obj, Index = index })
+                .ToList()
+                .ForEach(item =>
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"   {obj.Efecto}");
-                    Console.ResetColor();
-                }
-            }
+                    Console.Write($"{item.Index + 1}. ");
+                    MostrarNombreConColor(item.Objeto);
+                    Console.WriteLine($" ({item.Objeto.Tipo})");
+                    
+                    if (!string.IsNullOrEmpty(item.Objeto.Efecto))
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine($"   {item.Objeto.Efecto}");
+                        Console.ResetColor();
+                    }
+                });
         }
     }
 }

@@ -1,11 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading;
 using RogueLite.UI.Components;
 
 namespace RogueLite.UI.Screens
 {
     /// <summary>
-    /// Pantalla de inicio del juego - Rediseño ÉPICO.
+    /// Pantalla de inicio del juego 
     /// </summary>
     public class StartScreen
     {
@@ -39,13 +40,15 @@ namespace RogueLite.UI.Screens
 
         private void MostrarEfectoInicial()
         {
-            // Efecto de "escaneo" inicial
-            for (int i = 0; i < 3; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine("\n    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-                Thread.Sleep(50);
-            }
+            // Efecto de "escaneo" inicial 
+            Enumerable.Range(0, 3)
+                .ToList()
+                .ForEach(_ =>
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("\n    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+                    Thread.Sleep(50);
+                });
             Console.Clear();
         }
 
@@ -57,20 +60,21 @@ namespace RogueLite.UI.Screens
                 "",
                 "    ╔══════════════════════════════════════════════════════╗",
                 "    ║                                                      ║",
-                "    ║     ███╗   ███╗ █████╗ ███████╗███╗   ███╗ █████╗   ║",
-                "    ║     ████╗ ████║██╔══██╗╚══███╔╝████╗ ████║██╔══██╗  ║",
-                "    ║     ██╔████╔██║███████║  ███╔╝ ██╔████╔██║███████║  ║",
-                "    ║     ██║╚██╔╝██║██╔══██║ ███╔╝  ██║╚██╔╝██║██╔══██║  ║",
-                "    ║     ██║ ╚═╝ ██║██║  ██║███████╗██║ ╚═╝ ██║██║  ██║  ║",
-                "    ║     ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝  ║",
+                "    ║     ███╗   ███╗ █████╗ ███████╗███╗   ███╗ █████╗    ║",
+                "    ║     ████╗ ████║██╔══██╗╚══███╔╝████╗ ████║██╔══██╗   ║",
+                "    ║     ██╔████╔██║███████║  ███╔╝ ██╔████╔██║███████║   ║",
+                "    ║     ██║╚██╔╝██║██╔══██║ ███╔╝  ██║╚██╔╝██║██╔══██║   ║",
+                "    ║     ██║ ╚═╝ ██║██║  ██║███████╗██║ ╚═╝ ██║██║  ██║   ║",
+                "    ║     ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝   ║",
                 "    ║                                                      ║",
-                "    ║              ⚔️  DEL DESTINO  ⚔️                      ║",
+                "    ║              ⚔️  DEL DESTINO  ⚔️                       ║",
                 "    ║                                                      ║",
                 "    ╚══════════════════════════════════════════════════════╝",
                 ""
             };
 
-            foreach (var linea in logo)
+           
+            logo.ToList().ForEach(linea =>
             {
                 if (linea.Contains("███") || linea.Contains("╗") || linea.Contains("╝"))
                 {
@@ -87,7 +91,7 @@ namespace RogueLite.UI.Screens
                 
                 Console.WriteLine(linea);
                 Thread.Sleep(30);
-            }
+            });
             Console.ResetColor();
         }
 
@@ -121,12 +125,13 @@ namespace RogueLite.UI.Screens
                 "    🏪 Comercio y gestión de recursos"
             };
 
-            foreach (var feature in features)
+           
+            features.ToList().ForEach(feature =>
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine(feature);
                 Thread.Sleep(100);
-            }
+            });
             Console.ResetColor();
             Console.WriteLine();
         }
@@ -139,18 +144,20 @@ namespace RogueLite.UI.Screens
             Console.WriteLine("    ═══════════════════════════════════════════════════════");
             Console.ResetColor();
             
-            // Efecto de parpadeo en el prompt
-            for (int i = 0; i < 3; i++)
-            {
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("              >>> Presiona cualquier tecla para comenzar <<<");
-                Thread.Sleep(400);
-                
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.Write("                                                              ");
-                Thread.Sleep(300);
-            }
+            // Efecto de parpadeo en el prompt 
+            Enumerable.Range(0, 3)
+                .ToList()
+                .ForEach(_ =>
+                {
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("              >>> Presiona cualquier tecla para comenzar <<<");
+                    Thread.Sleep(400);
+                    
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write("                                                              ");
+                    Thread.Sleep(300);
+                });
             
             Console.SetCursorPosition(0, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Yellow;

@@ -14,6 +14,10 @@
 
 **Mazmorra del Destino** es un juego roguelite por turnos desarrollado completamente en C# para consola. El jugador debe atravesar 5 salas procedurales llenas de enemigos, recolectar objetos con sistema de rareza, enfrentarse a jefes épicos con habilidades especiales, y gestionar recursos estratégicamente en una tienda entre salas.
 
+### Finalidad del Proyecto
+
+La finalidad principal es usar ***linQ*** en vez de bucles excepto en el menú principal que muestra todo.
+
 ### 🎮 Género
 - **Roguelite** - Muerte permanente con progresión entre partidas
 - **RPG por turnos** - Combate táctico estratégico

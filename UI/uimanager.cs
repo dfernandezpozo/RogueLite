@@ -7,7 +7,7 @@ using RogueLite.UI.Screens;
 namespace RogueLite.UI
 {
     /// <summary>
-    /// Orquestador principal de la interfaz de usuario.
+    /// Manejador principal de la interfaz de usuario.
     /// Coordina las diferentes pantallas y componentes visuales.
     /// </summary>
     public class UIManager

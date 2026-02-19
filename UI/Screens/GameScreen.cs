@@ -9,7 +9,7 @@ using RogueLite.UI.Renderers;
 namespace RogueLite.UI.Screens
 {
     /// <summary>
-    /// Pantalla principal del juego durante el gameplay - Rediseño ÉPICO.
+    /// Pantalla principal del juego durante el gameplay 
     /// </summary>
     public class GameScreen
     {
@@ -48,18 +48,18 @@ namespace RogueLite.UI.Screens
 
         private void EfectoEntradaSala()
         {
-            // Cortina de apertura
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine();
-            }
+            // Cortina de apertura 
+            Enumerable.Range(0, 3).ToList().ForEach(_ => Console.WriteLine());
             
-            for (int i = 0; i < 5; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine("    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-                Thread.Sleep(40);
-            }
+            
+            Enumerable.Range(0, 5)
+                .ToList()
+                .ForEach(_ =>
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+                    Thread.Sleep(40);
+                });
             Console.ResetColor();
             Thread.Sleep(200);
             Console.Clear();
@@ -89,7 +89,7 @@ namespace RogueLite.UI.Screens
             Console.ResetColor();
             
             string titulo = sala.Nombre.ToUpper();
-            int padding = (55 - titulo.Length - 6) / 2; // 6 por los iconos
+            int padding = (55 - titulo.Length - 6) / 2; 
             Console.Write(new string(' ', padding));
             
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -173,7 +173,7 @@ namespace RogueLite.UI.Screens
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine(@"
     ╔═══════════════════════════════════════════════════════╗
-    ║          ⚔️  MAZMORRA DEL DESTINO  ⚔️                  ║
+    ║          ⚔️  MAZMORRA DEL DESTINO  ⚔️                ║
     ╚═══════════════════════════════════════════════════════╝");
             Console.ResetColor();
         }

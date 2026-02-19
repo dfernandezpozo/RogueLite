@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using RogueLite.Models;
 using RogueLite.UI.Components;
@@ -7,7 +8,7 @@ using RogueLite.UI.Components;
 namespace RogueLite.UI.Screens
 {
     /// <summary>
-    /// Pantalla de selección de personaje - Rediseño ÉPICO.
+    /// Pantalla de selección de personaje 
     /// </summary>
     public class CharacterSelectionScreen
     {
@@ -41,9 +42,9 @@ namespace RogueLite.UI.Screens
             Console.WriteLine(@"
     ╔═══════════════════════════════════════════════════════╗
     ║                                                       ║
-    ║     ⚔️  ═══════ SELECCIÓN DE HÉROE ═══════  ⚔️         ║
+    ║     ⚔️  ═══════ SELECCIÓN DE HÉROE ═══════  ⚔️       ║
     ║                                                       ║
-    ║           Elige sabiamente tu destino...             ║
+    ║           Elige sabiamente tu destino...              ║
     ║                                                       ║
     ╚═══════════════════════════════════════════════════════╝
 ");
@@ -58,19 +59,23 @@ namespace RogueLite.UI.Screens
             Console.ResetColor();
             Console.WriteLine();
 
-            for (int i = 0; i < personajes.Count; i++)
-            {
-                MostrarPersonajeEpico(i + 1, personajes[i]);
-                
-                if (i < personajes.Count - 1)
+            
+            personajes
+                .Select((personaje, index) => new { Personaje = personaje, Index = index })
+                .ToList()
+                .ForEach(item =>
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine("    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄");
-                    Console.ResetColor();
-                }
-                
-                Thread.Sleep(150);
-            }
+                    MostrarPersonajeEpico(item.Index + 1, item.Personaje);
+                    
+                    if (item.Index < personajes.Count - 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine("    ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄");
+                        Console.ResetColor();
+                    }
+                    
+                    Thread.Sleep(150);
+                });
             
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -183,15 +188,17 @@ namespace RogueLite.UI.Screens
             Console.WriteLine("    ═══════════════════════════════════════════════════════");
             Console.ResetColor();
             
-            // Efecto de carga
+           
             Console.WriteLine();
             Console.Write("    ");
-            for (int i = 0; i < 50; i++)
-            {
-                Console.ForegroundColor = i < 25 ? ConsoleColor.DarkCyan : ConsoleColor.Cyan;
-                Console.Write("▓");
-                Thread.Sleep(30);
-            }
+            Enumerable.Range(0, 50)
+                .ToList()
+                .ForEach(i =>
+                {
+                    Console.ForegroundColor = i < 25 ? ConsoleColor.DarkCyan : ConsoleColor.Cyan;
+                    Console.Write("▓");
+                    Thread.Sleep(30);
+                });
             Console.ResetColor();
             Console.WriteLine("\n");
             

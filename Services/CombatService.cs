@@ -48,7 +48,7 @@ namespace RogueLite.Services
 
             var resultado = new ResultadoTurno { Valido = true };
 
-            // FASE 1: Ataque del jugador
+            // Ataque del jugador
             int daño = jugador.CalcularAtaque();
             enemigoObjetivo.RecibirDaño(daño);
             DañoTotalInfligido += daño;
@@ -57,7 +57,7 @@ namespace RogueLite.Services
             resultado.EnemigoObjetivo = enemigoObjetivo;
             resultado.Mensaje = $"⚔️ Atacaste a {enemigoObjetivo.Nombre} causando {daño} de daño!";
 
-            // Verificar si el enemigo fue derrotado
+            // Verificar si el enemigo ha sido derrotado
             if (!enemigoObjetivo.EstaVivo())
             {
                 ProcesarEnemigoDerrotado(enemigoObjetivo, jugador, resultado);
@@ -71,7 +71,7 @@ namespace RogueLite.Services
                 }
             }
 
-            // FASE 2: Contraataque de TODOS los enemigos vivos
+            // Contraataque de TODOS los enemigos vivos
             EjecutarTurnoEnemigos(resultado, jugador);
 
             return resultado;
@@ -95,7 +95,7 @@ namespace RogueLite.Services
                 jugador.Inventario.Remove(objeto);
                 resultado.ObjetoUsado = true;
 
-                // Los enemigos atacan después de usar el objeto
+                
                 if (EnCombate && SalaActual.TieneEnemigos())
                 {
                     EjecutarTurnoEnemigos(resultado, jugador);
@@ -162,7 +162,7 @@ namespace RogueLite.Services
             // Los enemigos atacan
             EjecutarTurnoEnemigos(resultado, jugador);
 
-            // Remover la bendición temporal después del turno
+            
             jugador.BendicionesActivas.Remove(bendicionDefensa);
 
             return resultado;
@@ -178,7 +178,7 @@ namespace RogueLite.Services
 
             var resultado = new ResultadoTurno { Valido = true };
 
-            // 50% de probabilidad de huir
+            
             bool huyoExitosamente = _random.Next(100) < 50;
 
             if (huyoExitosamente)
@@ -240,11 +240,11 @@ namespace RogueLite.Services
             SalaActual.Enemigos.Remove(enemigo);
             jugador.GanarExperiencia(25);
 
-            // *** NUEVO: Drop de oro ***
+            
             int oroGanado;
             if (enemigo is Boss)
             {
-                // Bosses dan mucho más oro
+                // Bosses dan  más oro
                 oroGanado = _random.Next(100, 200);
                 resultado.Mensaje += $"\n👑 ¡RECOMPENSA DEL JEFE!";
             }
@@ -273,37 +273,40 @@ namespace RogueLite.Services
                 return;
 
             resultado.AtaquesEnemigos = new List<AtaqueEnemigo>();
-            int dañoTotalRecibido = 0;
 
-            foreach (var enemigo in SalaActual.Enemigos.Where(e => e.EstaVivo()).ToList())
-            {
-                // *** NUEVO: Verificar si es un Boss con habilidad ***
-                if (enemigo is Boss boss)
+            
+            var ataques = SalaActual.Enemigos
+                .Where(e => e.EstaVivo())
+                .Select(enemigo =>
                 {
-                    var habilidad = boss.ObtenerHabilidadParaUsar();
-                    
-                    if (habilidad != null)
+                    // Verificar si es un Boss con habilidad
+                    if (enemigo is Boss boss)
                     {
-                        EjecutarHabilidadBoss(boss, habilidad, jugador, resultado);
-                        continue; // Ya atacó con habilidad, no hace ataque normal
+                        var habilidad = boss.ObtenerHabilidadParaUsar();
+                        
+                        if (habilidad != null)
+                        {
+                            return EjecutarHabilidadBossConRetorno(boss, habilidad, jugador);
+                        }
                     }
-                }
 
-                // Ataque normal
-                int dañoBase = enemigo.Ataque;
-                int dañoRecibido = Math.Max(1, dañoBase - jugador.CalcularDefensa());
-                jugador.RecibirDaño(dañoRecibido);
+                    // Ataque normal
+                    int dañoBase = enemigo.Ataque;
+                    int dañoRecibido = Math.Max(1, dañoBase - jugador.CalcularDefensa());
+                    jugador.RecibirDaño(dañoRecibido);
 
-                dañoTotalRecibido += dañoRecibido;
+                    return new AtaqueEnemigo
+                    {
+                        Enemigo = enemigo,
+                        Daño = dañoRecibido
+                    };
+                })
+                .ToList();
 
-                resultado.AtaquesEnemigos.Add(new AtaqueEnemigo
-                {
-                    Enemigo = enemigo,
-                    Daño = dañoRecibido
-                });
-            }
-
+            resultado.AtaquesEnemigos = ataques;
+            int dañoTotalRecibido = ataques.Sum(a => a.Daño);
             resultado.DañoEnemigo = dañoTotalRecibido;
+            
             FormatearMensajeAtaquesEnemigos(resultado, dañoTotalRecibido);
 
             if (!jugador.EstaVivo())
@@ -314,31 +317,24 @@ namespace RogueLite.Services
         }
 
         /// <summary>
-        /// Ejecuta una habilidad especial de un boss.
+        /// Ejecuta una habilidad especial de un boss y devuelve el ataque.
         /// </summary>
-        private void EjecutarHabilidadBoss(Boss boss, HabilidadBoss habilidad, Personaje jugador, ResultadoTurno resultado)
+        private AtaqueEnemigo EjecutarHabilidadBossConRetorno(Boss boss, HabilidadBoss habilidad, Personaje jugador)
         {
             Console.WriteLine($"\n🔥 ¡{boss.Nombre} usa {habilidad.Nombre}!");
             Console.WriteLine($"   {habilidad.Descripcion}");
             System.Threading.Thread.Sleep(800);
             
+            int daño = 0;
+            
             // Daño de la habilidad
             if (habilidad.Danio > 0)
             {
-                int daño = habilidad.EsAreaDanio 
-                    ? habilidad.Danio  // Ignora defensa completamente
+                daño = habilidad.EsAreaDanio 
+                    ? habilidad.Danio  
                     : Math.Max(1, habilidad.Danio - jugador.CalcularDefensa());
                     
                 jugador.RecibirDaño(daño);
-                
-                resultado.AtaquesEnemigos.Add(new AtaqueEnemigo
-                {
-                    Enemigo = boss,
-                    Daño = daño,
-                    EsHabilidadEspecial = true
-                });
-                
-                resultado.DañoEnemigo += daño;
             }
             
             // Curación del boss
@@ -351,6 +347,13 @@ namespace RogueLite.Services
                 Console.WriteLine($"💚 {boss.Nombre} se cura {vidaCurada} HP!");
                 System.Threading.Thread.Sleep(400);
             }
+
+            return new AtaqueEnemigo
+            {
+                Enemigo = boss,
+                Daño = daño,
+                EsHabilidadEspecial = true
+            };
         }
 
         private void FormatearMensajeAtaquesEnemigos(ResultadoTurno resultado, int dañoTotal)
@@ -364,11 +367,16 @@ namespace RogueLite.Services
             else if (resultado.AtaquesEnemigos.Count > 1)
             {
                 resultado.Mensaje += $"\n💥 Los enemigos atacan causando {dañoTotal} de daño total:";
-                foreach (var ataque in resultado.AtaquesEnemigos)
-                {
-                    string tipoAtaque = ataque.EsHabilidadEspecial ? "⚡ Habilidad" : "Ataque";
-                    resultado.Mensaje += $"\n   • {ataque.Enemigo.Nombre} ({tipoAtaque}): {ataque.Daño} de daño";
-                }
+                
+               
+                var mensajesAtaques = resultado.AtaquesEnemigos
+                    .Select(ataque =>
+                    {
+                        string tipoAtaque = ataque.EsHabilidadEspecial ? "⚡ Habilidad" : "Ataque";
+                        return $"\n   • {ataque.Enemigo.Nombre} ({tipoAtaque}): {ataque.Daño} de daño";
+                    });
+                
+                resultado.Mensaje += string.Join("", mensajesAtaques);
             }
         }
     }

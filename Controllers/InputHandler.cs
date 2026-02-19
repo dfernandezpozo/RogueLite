@@ -5,6 +5,7 @@ using RogueLite.Manager;
 using RogueLite.UI;
 using RogueLite.Models;
 using RogueLite.Services;
+
 namespace RogueLite.Controllers
 {
     /// <summary>
@@ -16,6 +17,11 @@ namespace RogueLite.Controllers
         private readonly GameManager _gameManager;
         private readonly UIManager _uiManager;
 
+        /// <summary>
+        /// Inicializa el controlador con las dependencias necesarias.
+        /// </summary>
+        /// <param name="gameManager">Gestor principal del estado del juego.</param>
+        /// <param name="uiManager">Gestor de la interfaz de usuario.</param>
         public InputHandler(GameManager gameManager, UIManager uiManager)
         {
             _gameManager = gameManager;
@@ -26,6 +32,11 @@ namespace RogueLite.Controllers
         // COMBATE
         // ═══════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Procesa la acción de combate seleccionada por el jugador.
+        /// </summary>
+        /// <param name="accion">Carácter que representa la acción ('1' atacar, '2' usar objeto, '3' defender, '4' recoger, '5' huir).</param>
+        /// <param name="sala">Sala actual donde se desarrolla el combate.</param>
         public void ProcesarAccionCombate(char accion, Sala sala)
         {
             switch (accion)
@@ -54,6 +65,10 @@ namespace RogueLite.Controllers
             }
         }
 
+        /// <summary>
+        /// Gestiona el flujo de ataque: selecciona un enemigo objetivo,
+        /// ejecuta el ataque y muestra el resultado junto a los contraataques.
+        /// </summary>
         private void ProcesarAtaque()
         {
             var enemigos = _gameManager.ObtenerEnemigosVivos();
@@ -85,6 +100,10 @@ namespace RogueLite.Controllers
             MostrarContraataques(resultado);
         }
 
+        /// <summary>
+        /// Permite al jugador seleccionar y usar un objeto del inventario durante el combate.
+        /// Muestra el resultado de uso y procesa los contraataques enemigos.
+        /// </summary>
         private void ProcesarUsarObjeto()
         {
             if (!_gameManager.Jugador.Inventario.Any())
@@ -108,6 +127,9 @@ namespace RogueLite.Controllers
             MostrarContraataques(resultado);
         }
 
+        /// <summary>
+        /// Ejecuta la acción de defensa del jugador y procesa los contraataques enemigos.
+        /// </summary>
         private void ProcesarDefender()
         {
             var resultado = _gameManager.Defender();
@@ -122,6 +144,11 @@ namespace RogueLite.Controllers
             MostrarContraataques(resultado);
         }
 
+        /// <summary>
+        /// Permite al jugador recoger un objeto de la sala durante el combate.
+        /// Si hay enemigos vivos, estos atacan al jugador mientras recoge.
+        /// </summary>
+        /// <param name="sala">Sala de la que se recoge el objeto.</param>
         private void ProcesarRecogerObjeto(Sala sala)
         {
             if (!sala.TieneObjetos())
@@ -150,6 +177,10 @@ namespace RogueLite.Controllers
             }
         }
 
+        /// <summary>
+        /// Intenta que el jugador huya del combate.
+        /// Si falla, los enemigos contraatacan.
+        /// </summary>
         private void ProcesarHuir()
         {
             var resultado = _gameManager.IntentarHuir();
@@ -175,6 +206,13 @@ namespace RogueLite.Controllers
         // EXPLORACIÓN
         // ═══════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Procesa la acción de exploración seleccionada por el jugador fuera del combate.
+        /// </summary>
+        /// <param name="accion">Carácter que representa la acción ('1' recoger objeto, '2' bendición, '3' continuar).</param>
+        /// <param name="sala">Sala que se está explorando.</param>
+        /// <param name="continuarExploracion">Referencia al flag que controla si el jugador sigue explorando la sala.</param>
+        /// <param name="bendicionUsada">Referencia al flag que evita usar más de una bendición por sala.</param>
         public void ProcesarAccionExploracion(char accion, Sala sala, ref bool continuarExploracion, ref bool bendicionUsada)
         {
             switch (accion)
@@ -212,6 +250,11 @@ namespace RogueLite.Controllers
             }
         }
 
+        /// <summary>
+        /// Permite al jugador recoger un objeto de la sala durante la exploración,
+        /// sin penalización por parte de los enemigos.
+        /// </summary>
+        /// <param name="sala">Sala de la que se recoge el objeto.</param>
         private void ProcesarRecogerObjetoExploracion(Sala sala)
         {
             var objeto = SeleccionarObjetoSala(sala);
@@ -229,6 +272,10 @@ namespace RogueLite.Controllers
             }
         }
 
+        /// <summary>
+        /// Solicita y aplica una bendición aleatoria al jugador.
+        /// Solo puede usarse una vez por sala.
+        /// </summary>
         private void ProcesarBendicion()
         {
             var bendicion = _gameManager.AplicarBendicion();
@@ -246,6 +293,12 @@ namespace RogueLite.Controllers
         // SELECCIÓN (métodos auxiliares)
         // ═══════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Muestra la lista de enemigos vivos y solicita al jugador que elija uno.
+        /// Si solo hay un enemigo, lo devuelve directamente sin preguntar.
+        /// </summary>
+        /// <param name="enemigos">Lista de enemigos disponibles para atacar.</param>
+        /// <returns>El enemigo seleccionado, o <c>null</c> si la selección es inválida.</returns>
         private Enemigo? SeleccionarEnemigo(List<Enemigo> enemigos)
         {
             if (enemigos.Count == 1)
@@ -254,11 +307,13 @@ namespace RogueLite.Controllers
             }
 
             Console.WriteLine("\n🎯 ¿A qué enemigo atacas?");
-            for (int i = 0; i < enemigos.Count; i++)
-            {
-                var e = enemigos[i];
-                Console.WriteLine($"{i + 1}. {e.Nombre} (❤️  {e.Vida}/{e.VidaMaxima})");
-            }
+            
+            var enemigosMostrados = enemigos
+                .Select((e, index) => $"{index + 1}. {e.Nombre} (❤️  {e.Vida}/{e.VidaMaxima})")
+                .ToList();
+            
+            enemigosMostrados.ForEach(Console.WriteLine);
+            
             Console.Write("\nElige el número: ");
 
             if (int.TryParse(Console.ReadLine(), out int index) && index >= 1 && index <= enemigos.Count)
@@ -270,16 +325,20 @@ namespace RogueLite.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Muestra el inventario del jugador y solicita que seleccione un objeto para usar.
+        /// </summary>
+        /// <returns>El objeto seleccionado, o <c>null</c> si se cancela o la selección es inválida.</returns>
         private Objeto? SeleccionarObjetoInventario()
         {
             Console.WriteLine("\n🎒 TU INVENTARIO:");
             var objetos = _gameManager.Jugador.Inventario;
             
-            for (int i = 0; i < objetos.Count; i++)
-            {
-                var obj = objetos[i];
-                Console.WriteLine($"{i + 1}. {obj.Nombre} ({obj.Tipo}) - {(obj.EsConsumible ? "Consumible" : "Equipable")}");
-            }
+            var objetosMostrados = objetos
+                .Select((obj, index) => $"{index + 1}. {obj.Nombre} ({obj.Tipo}) - {(obj.EsConsumible ? "Consumible" : "Equipable")}")
+                .ToList();
+            
+            objetosMostrados.ForEach(Console.WriteLine);
             
             Console.Write("\n¿Qué objeto usas? (0 para cancelar): ");
 
@@ -300,13 +359,21 @@ namespace RogueLite.Controllers
             return objetos[index - 1];
         }
 
+        /// <summary>
+        /// Muestra los objetos disponibles en la sala y solicita al jugador que elija uno.
+        /// </summary>
+        /// <param name="sala">Sala cuyos objetos se mostrarán.</param>
+        /// <returns>El objeto seleccionado, o <c>null</c> si se cancela o la selección es inválida.</returns>
         private Objeto? SeleccionarObjetoSala(Sala sala)
         {
             Console.WriteLine("\n📦 OBJETOS EN LA SALA:");
-            for (int i = 0; i < sala.Objetos.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {sala.Objetos[i].Nombre}");
-            }
+            
+            var objetosMostrados = sala.Objetos
+                .Select((obj, index) => $"{index + 1}. {obj.Nombre}")
+                .ToList();
+            
+            objetosMostrados.ForEach(Console.WriteLine);
+            
             Console.Write("\n¿Qué objeto recoges? (0 para cancelar): ");
 
             if (!int.TryParse(Console.ReadLine(), out int index))
@@ -330,18 +397,21 @@ namespace RogueLite.Controllers
         // HELPERS
         // ═══════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Muestra en pantalla los contraataques enemigos del turno actual.
+        /// Si el jugador muere como consecuencia, muestra el mensaje de derrota.
+        /// </summary>
+        /// <param name="resultado">Resultado del turno que contiene la lista de ataques enemigos.</param>
         private void MostrarContraataques(ResultadoTurno resultado)
         {
             if (resultado.AtaquesEnemigos != null && resultado.AtaquesEnemigos.Count > 0)
             {
                 Console.WriteLine();
-                foreach (var ataque in resultado.AtaquesEnemigos)
-                {
-                    if (ataque.Enemigo != null)
-                    {
-                        _uiManager.MostrarContraataque(ataque.Enemigo, ataque.Daño);
-                    }
-                }
+                
+                resultado.AtaquesEnemigos
+                    .Where(ataque => ataque.Enemigo != null)
+                    .ToList()
+                    .ForEach(ataque => _uiManager.MostrarContraataque(ataque.Enemigo, ataque.Daño));
 
                 if (!_gameManager.Jugador.EstaVivo())
                 {

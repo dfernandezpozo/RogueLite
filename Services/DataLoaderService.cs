@@ -26,7 +26,7 @@ namespace RogueLite.Services
         public IReadOnlyList<Maldicion> MaldicionesDisponibles => _maldicionesDisponibles.AsReadOnly();
         public IReadOnlyList<Boss> BossesDisponibles => _bossesDisponibles.AsReadOnly();
         
-        // Para acceso directo (necesario para la tienda)
+       
         public List<Objeto> Objetos => _lootDisponibles.ToList();
 
         /// <summary>
@@ -52,11 +52,12 @@ namespace RogueLite.Services
         {
             var personajes = CargarJSON<Personaje>(Path.Combine("Data", "Characters", "characters.json"));
             
-            foreach (var personaje in personajes)
+            // Convertido a LINQ: inicializar inventario y bendiciones
+            personajes.ForEach(personaje =>
             {
                 personaje.Inventario = new List<Objeto>();
                 personaje.BendicionesActivas = new List<Bendicion>();
-            }
+            });
             
             return personajes;
         }
@@ -118,18 +119,14 @@ namespace RogueLite.Services
 
         private void InicializarEnemigos()
         {
-            foreach (var enemigo in _enemigosDisponibles)
-            {
-                enemigo.VidaMaxima = enemigo.Vida;
-            }
+           
+            _enemigosDisponibles.ForEach(enemigo => enemigo.VidaMaxima = enemigo.Vida);
         }
 
         private void InicializarBosses()
         {
-            foreach (var boss in _bossesDisponibles)
-            {
-                boss.VidaMaxima = boss.Vida;
-            }
+           
+            _bossesDisponibles.ForEach(boss => boss.VidaMaxima = boss.Vida);
         }
 
         private List<T> CargarJSON<T>(string path)
@@ -144,7 +141,7 @@ namespace RogueLite.Services
             {
                 var json = File.ReadAllText(path);
                 
-                // Opciones para deserializar enums correctamente
+                
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,

@@ -25,13 +25,13 @@ namespace RogueLite
             var personajeSeleccionado = uiManager.MostrarSeleccionPersonaje(personajes);
             gameManager.SeleccionarPersonaje(personajeSeleccionado);
 
-            // Game loop principal
+            // Bucle principal
             foreach (var sala in gameManager.Salas)
             {
                 if (!gameManager.Jugador.EstaVivo())
                     break;
 
-                // *** NUEVO: Tienda cada 3 salas (antes de sala 3) ***
+                //  Tienda cada 3 salas  ***
                 int indiceSala = gameManager.Salas.IndexOf(sala);
                 if (indiceSala > 0 && indiceSala % 3 == 0 && indiceSala < gameManager.Salas.Count - 1)
                 {
@@ -50,7 +50,7 @@ namespace RogueLite
                 // FASE 1: Combate
                 EjecutarFaseCombate(sala, gameManager, uiManager, inputHandler);
 
-                // FASE 2: Exploración (solo si ganaste el combate)
+                // FASE 2: Exploración (solo si ganas el combate)
                 if (!gameManager.EnCombate && gameManager.Jugador.EstaVivo())
                 {
                     EjecutarFaseExploracion(sala, gameManager, uiManager, inputHandler);

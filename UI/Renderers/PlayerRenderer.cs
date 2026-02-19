@@ -41,12 +41,17 @@ namespace RogueLite.UI.Renderers
             Console.WriteLine("\n🎒 INVENTARIO:");
             Console.ResetColor();
             
-            foreach (var item in inventario.GroupBy(i => i.Nombre))
-            {
-                var cantidad = item.Count();
-                var valorTotal = item.Sum(i => i.Valor);
-                Console.WriteLine($"  ▸ {item.Key} x{cantidad} [+{valorTotal}]");
-            }
+            
+            inventario
+                .GroupBy(i => i.Nombre)
+                .Select(grupo => new
+                {
+                    Nombre = grupo.Key,
+                    Cantidad = grupo.Count(),
+                    ValorTotal = grupo.Sum(i => i.Valor)
+                })
+                .ToList()
+                .ForEach(item => Console.WriteLine($"  ▸ {item.Nombre} x{item.Cantidad} [+{item.ValorTotal}]"));
         }
 
         public void MostrarBendiciones(List<Bendicion> bendiciones)
@@ -57,12 +62,18 @@ namespace RogueLite.UI.Renderers
             Console.WriteLine("\n✨ BENDICIONES ACTIVAS:");
             Console.ResetColor();
             
-            foreach (var b in bendiciones.GroupBy(b => b.Nombre))
-            {
-                var cantidad = b.Count();
-                var valorTotal = b.Sum(x => x.Valor);
-                Console.WriteLine($"  ▸ {b.Key} x{cantidad} [+{valorTotal} {b.First().Tipo}]");
-            }
+            
+            bendiciones
+                .GroupBy(b => b.Nombre)
+                .Select(grupo => new
+                {
+                    Nombre = grupo.Key,
+                    Cantidad = grupo.Count(),
+                    ValorTotal = grupo.Sum(b => b.Valor),
+                    Tipo = grupo.First().Tipo
+                })
+                .ToList()
+                .ForEach(b => Console.WriteLine($"  ▸ {b.Nombre} x{b.Cantidad} [+{b.ValorTotal} {b.Tipo}]"));
         }
 
         private void MostrarNombreYClase(Personaje jugador)

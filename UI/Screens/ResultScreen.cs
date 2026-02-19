@@ -7,7 +7,7 @@ using RogueLite.Models;
 namespace RogueLite.UI.Screens
 {
     /// <summary>
-    /// Pantalla de resultados (victoria o derrota) - Rediseño ÉPICO.
+    /// Pantalla de resultados (victoria o derrota) -
     /// </summary>
     public class ResultScreen
     {
@@ -39,28 +39,32 @@ namespace RogueLite.UI.Screens
 
         private void EfectoVictoria()
         {
-            // Efecto de partículas de victoria
+            // Efecto de partículas de victoria 
             Console.WriteLine("\n\n");
-            for (int i = 0; i < 3; i++)
-            {
-                Console.ForegroundColor = i % 2 == 0 ? ConsoleColor.Yellow : ConsoleColor.Green;
-                Console.WriteLine("    ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨");
-                Thread.Sleep(100);
-            }
+            Enumerable.Range(0, 3)
+                .ToList()
+                .ForEach(i =>
+                {
+                    Console.ForegroundColor = i % 2 == 0 ? ConsoleColor.Yellow : ConsoleColor.Green;
+                    Console.WriteLine("    ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨ ★ ✨");
+                    Thread.Sleep(100);
+                });
             Console.ResetColor();
             Thread.Sleep(300);
         }
 
         private void EfectoDerrota()
         {
-            // Efecto de desvanecimiento
+            // Efecto de desvanecimiento 
             Console.WriteLine("\n\n");
-            for (int i = 0; i < 3; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
-                Thread.Sleep(150);
-            }
+            Enumerable.Range(0, 3)
+                .ToList()
+                .ForEach(_ =>
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+                    Thread.Sleep(150);
+                });
             Console.ResetColor();
             Thread.Sleep(400);
         }
@@ -82,14 +86,16 @@ namespace RogueLite.UI.Screens
             Console.ResetColor();
             Thread.Sleep(800);
             
-            // Efecto de brillos
-            for (int i = 0; i < 5; i++)
-            {
-                Console.SetCursorPosition(10 + i * 8, 4);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("✨");
-                Thread.Sleep(100);
-            }
+            // Efecto de brillos 
+            Enumerable.Range(0, 5)
+                .ToList()
+                .ForEach(i =>
+                {
+                    Console.SetCursorPosition(10 + i * 8, 4);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("✨");
+                    Thread.Sleep(100);
+                });
             Console.ResetColor();
             Thread.Sleep(500);
         }
@@ -102,9 +108,9 @@ namespace RogueLite.UI.Screens
     ║                                                       ║
     ║     💀 ══════════ GAME OVER ══════════ 💀            ║
     ║                                                       ║
-    ║          Has caído en la mazmorra...                 ║
+    ║          Has caído en la mazmorra...                  ║
     ║                                                       ║
-    ║         Pero tu espíritu perdurará                   ║
+    ║         Pero tu espíritu perdurará                    ║
     ║                                                       ║
     ╚═══════════════════════════════════════════════════════╝
 ");
@@ -241,18 +247,22 @@ namespace RogueLite.UI.Screens
                 Console.WriteLine("    📋 ENEMIGOS DERROTADOS POR TIPO:");
                 Console.ResetColor();
                 
-                foreach (var g in grupos.OrderByDescending(x => x.Count()))
-                {
-                    Console.Write("       ");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("▸ ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"{g.Key}: ");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"{g.Count()}");
-                    Console.ResetColor();
-                    Thread.Sleep(100);
-                }
+                
+                grupos
+                    .OrderByDescending(g => g.Count())
+                    .ToList()
+                    .ForEach(g =>
+                    {
+                        Console.Write("       ");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("▸ ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write($"{g.Key}: ");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"{g.Count()}");
+                        Console.ResetColor();
+                        Thread.Sleep(100);
+                    });
             }
         }
 

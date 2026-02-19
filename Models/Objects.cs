@@ -7,10 +7,10 @@ namespace RogueLite.Models
     /// </summary>
     public enum Rareza
     {
-        Comun,      // 60% - Gris/Blanco
-        Raro,       // 30% - Azul
-        Epico,      // 8%  - Morado/Magenta
-        Legendario  // 2%  - Dorado/Amarillo
+        Comun,      // 60% 
+        Raro,       // 30% 
+        Epico,      // 8% 
+        Legendario  // 2%  
     }
 
     public class Objeto
@@ -19,8 +19,8 @@ namespace RogueLite.Models
         public string Tipo { get; set; } = string.Empty;
         public int Valor { get; set; }
         public bool EsConsumible { get; set; } = false;
-        public Rareza Rareza { get; set; } = Rareza.Comun; // ← NUEVO
-        public string Efecto { get; set; } = string.Empty; // Descripción del efecto
+        public Rareza Rareza { get; set; } = Rareza.Comun; 
+        public string Efecto { get; set; } = string.Empty; 
 
         /// <summary>
         /// Obtiene el color de consola según la rareza del objeto.

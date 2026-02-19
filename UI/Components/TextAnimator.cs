@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 
 namespace RogueLite.UI.Components
@@ -14,11 +15,12 @@ namespace RogueLite.UI.Components
         {
             Console.ForegroundColor = color;
             
-            foreach (char c in texto)
+            
+            texto.ToList().ForEach(c =>
             {
                 Console.Write(c);
                 Thread.Sleep(delay);
-            }
+            });
             
             Console.ResetColor();
             Console.WriteLine();

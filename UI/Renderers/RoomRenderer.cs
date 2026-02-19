@@ -46,10 +46,10 @@ namespace RogueLite.UI.Renderers
             Console.WriteLine("\n💎 OBJETOS EN SALA:");
             Console.ResetColor();
             
-            foreach (var obj in sala.Objetos)
-            {
-                Console.WriteLine($"  ▸ {obj.Nombre} [{obj.Tipo}] +{obj.Valor}");
-            }
+            
+            sala.Objetos
+                .ToList()
+                .ForEach(obj => Console.WriteLine($"  ▸ {obj.Nombre} [{obj.Tipo}] +{obj.Valor}"));
         }
 
         private void MostrarListaEnemigos(Sala sala)
@@ -58,10 +58,11 @@ namespace RogueLite.UI.Renderers
             Console.WriteLine("\n⚔️  ENEMIGOS:");
             Console.ResetColor();
 
-            foreach (var enemigo in sala.Enemigos.OrderByDescending(e => e.Vida))
-            {
-                MostrarEnemigo(enemigo);
-            }
+           
+            sala.Enemigos
+                .OrderByDescending(e => e.Vida)
+                .ToList()
+                .ForEach(MostrarEnemigo);
         }
 
         private void MostrarEnemigo(Enemigo enemigo)

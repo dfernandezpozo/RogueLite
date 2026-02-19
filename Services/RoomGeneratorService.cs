@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using RogueLite.Models;
 
 namespace RogueLite.Services
@@ -33,22 +34,12 @@ namespace RogueLite.Services
         /// </summary>
         public List<Sala> GenerarSalas(int cantidad)
         {
-            var salas = new List<Sala>();
-
-            for (int i = 1; i <= cantidad; i++)
-            {
-                // La última sala es una sala de boss
-                if (i == cantidad)
-                {
-                    salas.Add(GenerarSalaBoss(i));
-                }
-                else
-                {
-                    salas.Add(GenerarSalaNormal(i));
-                }
-            }
-
-            return salas;
+            
+            return Enumerable.Range(1, cantidad)
+                .Select(i => i == cantidad 
+                    ? GenerarSalaBoss(i)     // La última sala es la del boss
+                    : GenerarSalaNormal(i))   
+                .ToList();
         }
 
         /// <summary>
@@ -75,7 +66,7 @@ namespace RogueLite.Services
             
             if (boss == null)
             {
-                // Fallback: si no hay bosses disponibles, genera sala normal
+                // Si no hay bosses disponibles, genera sala normal
                 Console.WriteLine("⚠️  No hay bosses disponibles, generando sala normal");
                 return GenerarSalaNormal(id);
             }
@@ -86,7 +77,7 @@ namespace RogueLite.Services
                 Nombre = $"🔥 SALA DEL JEFE FINAL",
                 Descripcion = $"Una presencia aterradora llena la sala... {boss.Descripcion}",
                 Enemigos = new List<Enemigo> { boss },
-                Objetos = new List<Objeto>() // Los bosses no tienen objetos en el suelo
+                Objetos = new List<Objeto>() 
             };
         }
 
@@ -101,7 +92,7 @@ namespace RogueLite.Services
         }
 
         /// <summary>
-        /// Genera enemigos aleatorios para una sala.
+        /// Genera enemigos aleatorios 
         /// </summary>
         private List<Enemigo> GenerarEnemigosParaSala()
         {
@@ -110,7 +101,7 @@ namespace RogueLite.Services
         }
 
         /// <summary>
-        /// Genera objetos aleatorios para una sala.
+        /// Genera objetos aleatorios 
         /// </summary>
         private List<Objeto> GenerarObjetosParaSala()
         {

@@ -16,7 +16,7 @@ namespace RogueLite.Services
         {
             switch (objeto.Tipo)
             {
-                case "Consumible":  // ← AÑADIDO
+                case "Consumible":  
                 case "Poción":
                     return ProcesarConsumible(objeto, jugador, resultado);
                 case "Pergamino":
@@ -28,18 +28,18 @@ namespace RogueLite.Services
 
         private static bool ProcesarConsumible(Objeto objeto, Personaje jugador, ResultadoTurno resultado)
         {
-            // Pociones de salud
+           
             if (objeto.Nombre.Contains("Salud") || objeto.Nombre.Contains("Poción") || 
                 objeto.Nombre.Contains("Vida") || objeto.Nombre.Contains("Curación") ||
                 objeto.Nombre.Contains("Regeneración") || objeto.Nombre.Contains("Completo"))
             {
-                int curacion = objeto.Valor * 3; // Valor * 3 para que sea balanceado
+                int curacion = objeto.Valor * 3; 
                 jugador.Curar(curacion);
                 resultado.Mensaje = $"🧪 Usaste {objeto.Nombre} y recuperaste {curacion} de vida";
                 return true;
             }
 
-            // Elixir del Titán (legendario especial)
+            // Elixir del Titán 
             if (objeto.Nombre.Contains("Elixir") || objeto.Nombre.Contains("Titán"))
             {
                 jugador.Curar(jugador.VidaMaxima); // Cura completa
@@ -73,7 +73,7 @@ namespace RogueLite.Services
                 return true;
             }
 
-            // Consumible genérico - cura basado en valor
+            // cura basado en valor
             int curacionGenerica = objeto.Valor * 2;
             jugador.Curar(curacionGenerica);
             resultado.Mensaje = $"🧪 Usaste {objeto.Nombre} y recuperaste {curacionGenerica} de vida";

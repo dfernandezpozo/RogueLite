@@ -14,7 +14,7 @@ namespace RogueLite.Models
             return new Enemigo
             {
                 Nombre = this.Nombre,
-                Descripcion = this.Descripcion, // ← NUEVO
+                Descripcion = this.Descripcion, 
                 Vida = this.Vida,
                 VidaMaxima = this.VidaMaxima,
                 Ataque = this.Ataque,
